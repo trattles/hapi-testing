@@ -96,10 +96,10 @@ server.register(require('inert'), (err) => {
 		method: 'POST',
 		path: '/api/v1/messages',
 		handler: function(req, res) {
-			Message.create({
+			models.Message.create({
 				message: req.payload.message
 			}).then(function() {
-				let resPayload = Message.findAll();
+				let resPayload = models.Message.findAll();
 				res(resPayload);
 			});
 		}
