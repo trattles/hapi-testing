@@ -7,8 +7,9 @@ const server = new Hapi.Server();
 server.connection({ port: 3000});
 
 //Sequelize stuff
-import sequelize from './models';
-import Message from './models/message.js';
+import models from './models';
+// import sequelize from './models';
+// import Message from './models/message.js';
 
 //React Junk
 import React from 'react';
@@ -86,7 +87,8 @@ server.register(require('inert'), (err) => {
 		method: 'GET',
 		path: '/api/v1/messages',
 		handler: function(req, res) {
-			let messages = Message.findAll();
+			//let messages = Message.findAll();
+			let messages = models.Message.findAll();
 			res(messages);
 		}
 	});

@@ -1,13 +1,13 @@
-import Sequelize from 'sequelize';
-import sequelize from './index.js';
-
-let Message = sequelize.define('message', {
-	message: {
-		type: Sequelize.STRING,
-		field: 'message'
-	}
-});
-
-Message.sync();
-
-export default Message;
+'use strict';
+module.exports = function(sequelize, DataTypes) {
+  var Message = sequelize.define('Message', {
+    message: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate: function(models) {
+        // associations can be defined here
+      }
+    }
+  });
+  return Message;
+};
