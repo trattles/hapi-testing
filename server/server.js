@@ -62,7 +62,7 @@ const renderFullPage = function(html, initialState) {
 				<script>
 					window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
 				</script>
-				<script src="/static/bundle.js"></script>
+				<script src="http://localhost:8888/static/bundle.js"></script>
 			</body>
 		</html>
 	`;
