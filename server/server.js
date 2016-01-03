@@ -34,7 +34,7 @@ const handleRender = function(req, res) {
 	match({routes: Routes, location: req.url}, (error, redirectLocation, renderProps) => {
 		//res(req.url);
 		if(error) {
-			res(error.message);
+			res('error' + error.message);
 		}
 		else {
 			const html = renderToString(
