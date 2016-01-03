@@ -18,8 +18,9 @@ import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import reducer from './../common/Reducers/index.js';
-import { match, RoutingContext } from 'react-router';
-import Routes from './../common/routes/Routes.js';
+import { match, RoutingContext} from 'react-router';
+import { createLocation } from 'history';
+import routeConfig from './../common/routes/Routes.js';
 
 const handleRender = function(req, res) {
 	const initialState = {
@@ -31,8 +32,10 @@ const handleRender = function(req, res) {
 			}
 	const createStoreWithMiddleware = applyMiddleware( thunkMiddleware)(createStore);
 	const store = createStoreWithMiddleware(reducer(initialState));
-	match({routes: Routes, location: req.url}, (error, redirectLocation, renderProps) => {
-		//res(req.url);
+	let reqLocation = createLocation(req.url);
+	//res(location);
+	match({routes: routeConfig, location: reqLocation}, (error, redirectLocation, renderProps) => {
+		// res(req.url);
 		if(error) {
 			res('error' + error.message);
 		}
