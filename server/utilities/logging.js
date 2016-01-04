@@ -10,17 +10,17 @@ module.exports = {
 	{
 		reporter: good_file,
         events: { ops: '*' },
-        config: './server/storage/logs/good_ops_log'
+        config: './server/storage/logs/good_ops_log.json'
 	},
 	{
 		reporter: good_file,
 		events: { response: '*' },
-		config: './server/storage/logs/good_response_log'
+		config: './server/storage/logs/good_response_log.json'
 	},
 	{
 		reporter: good_file,
 		events: { error: '*', log: '*' },
-		config: './server/storage/logs/good_log'
+		config: './server/storage/logs/good_log.json'
 	}
 	]
 };
