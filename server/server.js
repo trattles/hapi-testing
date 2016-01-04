@@ -40,7 +40,7 @@ const handleRender = function(req, res) {
 			res('error' + error.message);
 		}
 		else {
-			res(renderProps);
+			//res(renderProps);
 			const html = renderToString(
 			<Provider store={store}>
 				<RouterContext {...renderProps} />
@@ -49,7 +49,7 @@ const handleRender = function(req, res) {
 
 			//const initialState = store.getState();
 			
-			//res(renderFullPage(html, initialState));
+			res(renderFullPage(html, initialState));
 		}
 	});
 }

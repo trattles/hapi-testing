@@ -4,7 +4,8 @@
   "description": "",
   "main": "server/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "nodemon ./server/server.js --exec babel-node & node webpack.dev.js"
   },
   "author": "Ryan Trattles",
   "license": "ISC",
