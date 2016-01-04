@@ -6,10 +6,10 @@ const Path = require('path');
 const server = new Hapi.Server();
 server.connection({ port: 3000});
 
+
+
 //Sequelize stuff
 import models from './models';
-// import sequelize from './models';
-// import Message from './models/message.js';
 
 //React Junk
 import React from 'react';
@@ -71,13 +71,40 @@ const renderFullPage = function(html, initialState) {
 		</html>
 	`;
 }
-
-server.register(require('inert'), (err) => {
+let GoodLogOptions = {
+	opsInterval: 1000,
+	reporters: [{
+		reporter: require('good-console'),
+		events: {log: '*', response: '*'}
+	},
+	{
+		reporter: require('good-file'),
+        events: { ops: '*' },
+        config: './test/fixtures/awesome_log'
+	}
+	]
+};
+server.register([
+		{
+			register: require('inert')
+		},
+		{
+			register: require('good'),
+			options: require('./utilities/logging.js')
+		}
+	], (err) => {
 	server.route({
 		method: 'GET',
 		path: '/static/{filename}',
 		handler: function (req, reply) {
 			reply.file('static/' + req.params.filename);
+		}
+	});
+	server.route({
+		method: 'GET',
+		path: '/favicon.ico',
+		handler: function (req, res) {
+			res.file('static/favicon.ico');
 		}
 	})
 	server.route({
