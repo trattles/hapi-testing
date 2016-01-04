@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { Router, Route, browserHistory } from 'react-router';
 
-const history = createBrowserHistory();
 //import Routes from './../common/routes/Routes.js';
 
 import {createStore, applyMiddleware} from 'redux';
@@ -25,7 +23,7 @@ import routeConfig from './../common/routes/Routes.js';
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router routes={routeConfig} history={history}>
+		<Router routes={routeConfig} history={browserHistory}>
 		</Router>
 	</Provider>
 , document.getElementById('app-mount'));
