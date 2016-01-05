@@ -10,7 +10,7 @@ let AuthenticationController = {
 		let password = req.payload.password;
 		let hashPass = 'hello';
 		let salt = bcrypt.genSaltSync(10);
-		let hash = bcrypt.hashSync('test', salt);
+		let hash = bcrypt.hashSync(req.payload.password, salt);
 		
 		models.User.create({
 			email: req.payload.email,

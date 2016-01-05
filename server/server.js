@@ -10,6 +10,7 @@ server.connection({ port: 3000});
 
 //Sequelize stuff
 import models from './models';
+import bcrypt from 'bcrypt';
 
 //React Junk
 import React from 'react';
@@ -84,6 +85,7 @@ let GoodLogOptions = {
 	}
 	]
 };
+
 server.register([
 		{
 			register: require('inert')
@@ -91,8 +93,17 @@ server.register([
 		{
 			register: require('good'),
 			options: require('./utilities/logging.js')
+		},
+		{
+			register: require('hapi-auth-cookie')
 		}
 	], (err) => {
+	server.auth.strategy('session', 'cookie', {
+		password: 'secret',
+		cookie: 'sid-example',
+		isSecure: false
+	});
+
 	server.route({
 		method: 'GET',
 		path: '/static/{filename}',
@@ -121,6 +132,58 @@ server.register([
 			//let messages = Message.findAll();
 			let messages = models.Message.findAll();
 			res(messages);
+		}
+	});
+	server.route({
+		method: 'GET',
+		path: '/api/v1/returnthis',
+		handler: function(req, res) {
+			res('hey there');
+		}
+	});
+	server.route({
+		method: 'POST',
+		path: '/api/v1/login',
+		handler: function(req, res) {
+			models.User.findOne({
+				where: {
+					email: req.payload.email
+				}
+			}).then(function(user) {
+				bcrypt.compare(req.payload.password, user.password, function(err, valid){
+					console.log(valid);
+					if(valid){
+						console.log('in this part');
+						req.auth.session.set(user);
+						res('login successful');
+					}
+					else {
+						res('login failed');
+					}
+				})
+			})
+		}
+	});
+	server.route({
+		method: 'GET',
+		path: '/api/v1/logout',
+		config: {
+			handler: function(req, res) {
+				req.auth.session.clear();
+				res('Logged Out');
+			}
+		}
+	})
+	server.route({
+		method: 'GET',
+		path: '/api/v1/authTest',
+		config: {
+			auth: {
+				strategy: 'session'
+			},
+			handler: function(req, res) {
+				res('you hit a successful route');
+			}
 		}
 	});
 	server.route({
