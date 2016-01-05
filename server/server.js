@@ -128,11 +128,20 @@ server.register([
 		path: '/api/v1/messages',
 		handler: function(req, res) {
 			models.Message.create({
+				title: req.payload.title,
 				message: req.payload.message
 			}).then(function() {
 				let resPayload = models.Message.findAll();
 				res(resPayload);
 			});
+		}
+	});
+	server.route({
+		method: 'POST',
+		path: '/api/v1/user',
+		handler: function(req, res) {
+			let AuthenticationController = require('./controllers/AuthenticationController.js')
+			AuthenticationController.createUser(req, res);
 		}
 	})
 	server.route({
