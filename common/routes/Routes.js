@@ -8,11 +8,25 @@ import Name from './../components/Name.jsx';
 import Profile from './../components/Profile.jsx';
 import Messages from './../components/Messages.jsx';
 
-export default (
-	<Route path="/" component={App}>
-		<Route path="test" component={Name} />
-		<Route path="profile" component={Profile} />
-		<Route path="messages" component={Messages} />
-	</Route>
-);
+// export default (
+// 	<Route path="/" component={App}>
+// 		<Route path="test" component={Name} />
+// 		<Route path="profile" component={Profile} />
+// 		<Route path="messages" component={Messages} />
+// 	</Route>
+// );
+
+const routeConfig = [
+	{
+		path: '/',
+		component: App,
+		childRoutes: [
+			{path: 'test', component: Name},
+			{path: 'profile', component: Profile},
+			{path: 'messages', component: Messages}
+		]
+	}
+];
+
+export default routeConfig;
 			

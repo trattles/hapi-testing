@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import { Router, Route } from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { Router, Route, browserHistory } from 'react-router';
 
-const history = createBrowserHistory();
 //import Routes from './../common/routes/Routes.js';
 
 import {createStore, applyMiddleware} from 'redux';
@@ -21,14 +19,11 @@ import Name from './../common/components/Name.jsx';
 import Profile from './../common/components/Profile.jsx';
 import Messages from './../common/components/Messages.jsx';
 
+import routeConfig from './../common/routes/Routes.js';
+
 ReactDOM.render(
 	<Provider store={store}>
-		<Router history={history}>
-			<Route path="/" component={App}>
-				<Route path="test" component={Name} />
-				<Route path="profile" component={Profile} />
-				<Route path="messages" component={Messages} />
-			</Route>
+		<Router routes={routeConfig} history={browserHistory}>
 		</Router>
 	</Provider>
 , document.getElementById('app-mount'));
