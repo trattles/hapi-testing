@@ -1,10 +1,12 @@
 var webpack = require('webpack');
+var ExtractText = require('extract-text-webpack-plugin');
 
 module.exports = {
 	entry: [
 		"webpack-dev-server/client?http://localhost:8888",
 		"webpack/hot/only-dev-server",
 		"./client/entry.jsx",
+		"./common/css/style.scss"
 	],
 	output: {
 		path: __dirname + '/static',
@@ -12,7 +14,8 @@ module.exports = {
 		publicPath: 'http://localhost:8888/static/'
 	},
 	plugins: [
-		new webpack.HotModuleReplacementPlugin()
+		new webpack.HotModuleReplacementPlugin(),
+		new ExtractText("styles.css")
 	],
 	module: {
 		loaders: [
@@ -24,7 +27,7 @@ module.exports = {
 			{
 				test: /\.scss?$/,
 				exclude: /node_modules/,
-				loaders: ['style', 'css', 'sass']
+				loader: ExtractText.extract("style", "css", "sass")
 			}
 		]
 	}
