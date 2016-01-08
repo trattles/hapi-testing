@@ -20,6 +20,11 @@ module.exports = {
 				test: /\.jsx?$/,
 				loaders: ['react-hot', 'babel-loader?{"presets": ["react","es2015"]}'],
 				exclude: /node_modules/
+			},
+			{
+				test: /\.scss?$/,
+				exclude: /node_modules/,
+				loaders: ['style', 'css', 'sass']
 			}
 		]
 	}
