@@ -22,6 +22,8 @@ import reducer from './../common/Reducers/index.js';
 import { match, RouterContext} from 'react-router';
 import { createLocation } from 'history';
 import routeConfig from './../common/routes/Routes.js';
+import Radium, {Style, StyleRoot} from 'radium';
+import Normalize from './../common/styles/Normalize.js';
 
 const handleRender = function(req, res) {
 	const initialState = {
@@ -29,7 +31,10 @@ const handleRender = function(req, res) {
 					name: 'Bob',
 					age: 10
 				},
-				messages: []
+				messages: [],
+				request:{
+					userAgent: req.headers['user-agent']
+				} 
 			}
 	const createStoreWithMiddleware = applyMiddleware( thunkMiddleware)(createStore);
 	const store = createStoreWithMiddleware(reducer(initialState));
@@ -43,8 +48,11 @@ const handleRender = function(req, res) {
 		else {
 			//res(renderProps);
 			const html = renderToString(
-			<Provider store={store}>
-				<RouterContext {...renderProps} />
+			<Provider store={store} radiumConfig={{userAgent: req.headers['user-agent']}}>
+				<StyleRoot radiumConfig={{userAgent: req.headers['user-agent']}}>
+					<RouterContext {...renderProps} />
+					<Style rules={Normalize} />
+				</StyleRoot>
 			</Provider>
 			);
 
@@ -103,7 +111,13 @@ server.register([
 		cookie: 'sid-example',
 		isSecure: false
 	});
-
+	server.route({
+		method: 'GET',
+		path: '/config',
+		handler: function(req, res) {
+			res(req.headers['user-agent']);
+		}
+	});
 	server.route({
 		method: 'GET',
 		path: '/static/{filename}',

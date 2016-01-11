@@ -21,9 +21,15 @@ import Messages from './../common/components/Messages.jsx';
 
 import routeConfig from './../common/routes/Routes.js';
 
+import Radium, {Style, StyleRoot} from 'radium';
+import Normalize from './../common/styles/Normalize.js';
+
 ReactDOM.render(
 	<Provider store={store}>
+		<StyleRoot>
 		<Router routes={routeConfig} history={browserHistory}>
 		</Router>
+		<Style rules={Normalize} />
+		</StyleRoot>
 	</Provider>
 , document.getElementById('app-mount'));

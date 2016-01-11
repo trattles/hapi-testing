@@ -7,7 +7,7 @@ let state = {
 		name: 'Bob',
 		age: 10
 	},
-	messages: []
+	messages: [],
 }
 
 export default function (initialState = state) {

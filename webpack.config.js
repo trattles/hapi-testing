@@ -5,8 +5,7 @@ module.exports = {
 	entry: [
 		"webpack-dev-server/client?http://localhost:8888",
 		"webpack/hot/only-dev-server",
-		"./client/entry.jsx",
-		"./common/css/style.scss"
+		"./client/entry.jsx"
 	],
 	output: {
 		path: __dirname + '/static',
