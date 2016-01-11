@@ -61,7 +61,6 @@ const renderFullPage = function(html, initialState) {
 		<html>
 			<head>
 				<title>Please Work</title>
-				<link rel="stylesheet" type="text/css" href="http://localhost:8888/static/styles.css">
 			</head>
 			<body>
 				<div id="app-mount">${html}</div>
