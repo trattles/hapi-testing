@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux';
 import {ADD_MESSAGE, GET_MESSAGES} from './../actions/message-actions.js';
-import {UPDATE_NAME} from './../actions/profile-actions.js';
+import {UPDATE_NAME, CHANGE_PROFILE_CLASS} from './../actions/profile-actions.js';
 
 let state = {
 	profile: {
@@ -34,6 +34,12 @@ export default function (initialState = state) {
 		switch(action.type) {
 			case UPDATE_NAME:
 				profile.name = action.name;
+				break;
+			case CHANGE_PROFILE_CLASS:
+				console.log('event passed');
+				if(!profile.class) {
+					profile.class = 'profile_head';
+				}
 				break;
 		}
 

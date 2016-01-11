@@ -1,4 +1,16 @@
 body {
-	font-size: 50px;
 	color: blue;
+}
+.thing {
+	color: black;
+	position: relative;
+	left: 0px;
+	transition: all 1s;
+}
+.profile_head {
+	color: white;
+	left: 100px;
+}
+.profile_other {
+	color: black;
 }
