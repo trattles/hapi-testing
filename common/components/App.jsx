@@ -7,7 +7,6 @@ class App extends Component {
 	render() {
 		return (
 				<div>
-					<h1>{this.props.request}</h1>
 					<div className='nav_bar'>
 						<Link to="/test">Name</Link>
 						<Link to="/profile">Profile</Link>

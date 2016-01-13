@@ -7,22 +7,28 @@ import {Provider} from 'react-redux';
 import reducers from './../common/Reducers/index.js';
 import thunkMiddleware from 'redux-thunk';
 import { syncHistory, routeReducer } from 'redux-simple-router';
+import createLogger from 'redux-logger';
+
+const logger = createLogger();
 
 const reducer = combineReducers(Object.assign({}, reducers, {routing: routeReducer }));
-const initialState = window.__INITIAL_STATE__;
-const simpleRouter = syncHistory(browserHistory);
-const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, simpleRouter)(createStore);
 
-const store = createStoreWithMiddleware(reducer(initialState));
+let initialState = window.__INITIAL_STATE__;
+
+const simpleRouter = syncHistory(browserHistory);
+
+const createStoreWithMiddleware = applyMiddleware(thunkMiddleware, simpleRouter, logger)(createStore);
+
+const store = createStoreWithMiddleware(reducer, initialState);
+
 simpleRouter.syncHistoryToStore(store);
+
 
 //Components
 
 import routeConfig from './../common/routes/Routes.js';
 import Radium, {Style, StyleRoot} from 'radium';
 import Normalize from './../common/styles/Normalize.js';
-
-
 
 ReactDOM.render(
 	<Provider store={store}>

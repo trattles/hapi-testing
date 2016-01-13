@@ -9,7 +9,7 @@ class Profile extends Component {
 	render() {
 		return (
 			<div style={[styles.base]}>
-				<h1 className={this.props.profile.class + ' thing'}>Hello from Profile Component</h1>
+				<h1>Hello from Profile Component</h1>
 				<p>{this.props.profile.name}</p>
 				<ProfileName name={this.props.profile.name} onSubmit={this.props.updateName} />
 				<div onClick={this.props.changeProfileClass}>Click Me</div>
@@ -34,6 +34,7 @@ var styles = {
 };
 
 function mapStateToProps(state){
+	console.log(state);
 	return {
 		profile: state.profile
 	};

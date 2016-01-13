@@ -15,7 +15,7 @@ import bcrypt from 'bcrypt';
 //React Junk
 import React from 'react';
 import thunkMiddleware from 'redux-thunk';
-import {createStore, applyMiddleware} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import { renderToString } from 'react-dom/server';
 import reducer from './../common/Reducers/index.js';
@@ -24,20 +24,20 @@ import { createLocation } from 'history';
 import routeConfig from './../common/routes/Routes.js';
 import Radium, {Style, StyleRoot} from 'radium';
 import Normalize from './../common/styles/Normalize.js';
+import { syncHistory, routeReducer } from 'redux-simple-router';
 
 const handleRender = function(req, res) {
 	const initialState = {
+				
 				profile: {
-					name: 'Bob',
+					name: 'Bobss',
 					age: 10
-				},
-				messages: [],
-				request:{
-					userAgent: req.headers['user-agent']
-				} 
+				}
 			}
-	const createStoreWithMiddleware = applyMiddleware( thunkMiddleware)(createStore);
-	const store = createStoreWithMiddleware(reducer(initialState));
+	const combinedReducers = combineReducers(Object.assign({}, reducer, {routing: routeReducer}));
+	
+	const createStoreWithMiddleware = applyMiddleware(thunkMiddleware)(createStore);
+	const store = createStoreWithMiddleware(combinedReducers, initialState);
 	//res(location);
 	let reqLocation = createLocation(req.url);
 	match({routes: routeConfig, location: req.url}, (error, redirectLocation, renderProps) => {
